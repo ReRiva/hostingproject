@@ -1,0 +1,175 @@
+<!--Using the cards as a way to present the characters for now. After that try to find another way to show the information-->
+
+<html>
+    <head>
+<!--Ajax--> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+<!--Bootstrap-->       
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    </head>
+    
+    <body>
+        <h1> Diablo 4 Classes</h1>
+        <h4>Chose your Favorite Class</h4>
+
+        <!--Creating a template div, from the video-->
+        <div id="template" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    ##CHARACTERNAME
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">##CHARACTERNAME</h5>
+                <p class="card-text">##CHARACTERINFO</p>
+                <p class="btn btn-primary">Build sugestion</a>
+                <p class="card-text"><button class = "votebutton" onclick="vote('##CHARACTERNAME')">Vote</button></p>
+            
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div id="characterlist">
+
+
+
+            
+        </div>
+
+
+     <!--Script-->
+
+    <script>
+        function init(){
+            populatepage()
+        }
+        
+        function populatepage(){
+            // Ajax code from previous exercises and adpting the code
+            // Try to adapt it to Get information about the classes
+
+
+            $.ajax({
+                    "url":"/characters",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(result){
+                        var characters = result
+                        // It will return the Character number/Id we will use it to get the character name
+                        // and them send it to the function to create add a new character
+                        for (characterid in characters)
+                        {
+                            character = characters[characterid]
+                            //console.log(character)
+                            charactername = character['name']
+                            addCharacters(charactername)
+                            //addInfo(charactername)
+
+
+                        }
+                        
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("status:"+status+" message:"+error);
+                    }
+
+            });
+            
+        }
+        
+        // https://www.tutorialspoint.com/how-to-append-data-to-div-element-using-javascript#:~:text=innerHTML%20property%20to%20add%20content,element%20to%20the%20.
+        
+        // Create a new div using the template div created above when adding new Classes to the voting.
+        function addCharacters(charactername){
+            var charactersListElement = document.getElementById('characterlist')
+            var charactersTemplate = document.getElementById('template').innerHTML
+           
+            newCharactersHtml = charactersTemplate.replace(/##CHARACTERNAME/g, charactername)
+            charactersListElement.innerHTML += newCharactersHtml
+         
+
+
+        }
+        
+
+
+        
+        function vote(charactername){
+        console.log("Testing Vote for " +charactername)
+        $.ajax({
+                    "url":"/vote/" +charactername,
+                    "method":"POST",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(result){
+                        
+                        voteSuccessful(character)
+                        
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("status:"+status+" message:"+error);
+                    },
+
+                });
+
+
+        }
+
+        function voteSuccessful(character){
+        // JQuery  - disabling the button with the 'votebutton' class
+        //https://stackoverflow.com/questions/15122526/disable-button-in-jquery
+            $('.votebutton').prop('disabled', true)
+            $('.votebutton').click(window.location.href = 'https://www.example.com')
+        
+        }
+        
+
+        init()
+
+
+    /////// See the classes to remember how to host it and how to add the hyperlinks for the builds and 
+    /////// character info
+
+    /////// Check how to auto add a link for the build suggestion and information abot the classes
+
+
+         //var charactersInfoTemplate = document.getElementById('template').innerHTML
+            //charactersInfo = charactersInfoTemplate.replace(/##CHARACTERINFO/g, characterinfo)
+       // function addInfo(charactername){
+            //var links = [
+                //{ text: 'Barbarian', overview: 'The Barbarian is a staple class in the Diablo franchise and returns for glory in Diablo 4. They use overwhelming strength and a mastery of weapons to turn battlefields into wastelands.', build: 'https://maxroll.gg/d4/build-guides/rend-barbarian-leveling-guide' },
+                //{ text: 'Necromancer', overview: 'The Necromancer returns in Diablo 4 as the master of the Undead! They wield Shadow, Blood, Bone, and Curses as easily as ever before. With a horde of Skeletons, lead by your massive Golem, a single Necro fills the fields of Sanctuary with a terrifying host. The fuel you need to DEVASTATE the entire screen with MASSIVE Corpse Explosions is never more than a single dead demon away!', build: 'https://maxroll.gg/d4/build-guides/summoner-necromancer-leveling-guide' },
+                //{ text: 'Rogue', overview: 'https://openai.com' },
+                //{ text: 'Sorcerer', overview: 'https://openai.com' },
+                //{ text: 'Druid', overview: 'https://openai.com' },
+              //  ];
+            
+
+            //info = links
+            //console.log(info)
+            
+            //var charactersListElement = document.getElementById('characterlist')
+           // var charactersInfoTemplate = document.getElementById('template').innerHTML
+           // charactersInfo = charactersInfoTemplate.replace(/##CHARACTERINFO/g, characterinfo)
+
+
+            
+
+
+        //}
+
+    </script>
+        
+
+    </body>
+
+
+
+</html>
+
+
+
