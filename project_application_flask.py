@@ -7,8 +7,8 @@ app = Flask(__name__, static_url_path='', static_folder='html')
 
 chars = [
          {'name':'Necromancer'},
-         {'name':'Wizard'},
          {'name':'Sorcerer'},
+         {'name':'Barbarian'},
          {'name':'Rogue'},
          {'name':'Druid'},
          ]

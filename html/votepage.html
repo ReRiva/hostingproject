@@ -23,7 +23,8 @@
                 <div class="card-body">
                 <h5 class="card-title">##CHARACTERNAME</h5>
                 <p class="card-text">##CHARACTERINFO</p>
-                <p class="btn btn-primary">Build sugestion</a>
+                <p class="card-text"><img src="##CHARACTERIMAGE" width="250" height="250"></p>
+                <p class="btn btn-primary"><button class = "btn btn-primary" onclick="window.location.href = '##CHARACTERBUILD';">Build Link</button></p>
                 <p class="card-text"><button class = "votebutton" onclick="vote('##CHARACTERNAME')">Vote</button></p>
             
                 </div>
@@ -48,8 +49,7 @@
         }
         
         function populatepage(){
-            // Ajax code from previous exercises and adpting the code
-            // Try to adapt it to Get information about the classes
+            
 
 
             $.ajax({
@@ -67,7 +67,7 @@
                             //console.log(character)
                             charactername = character['name']
                             addCharacters(charactername)
-                            //addInfo(charactername)
+                        
 
 
                         }
@@ -83,15 +83,49 @@
         
         // https://www.tutorialspoint.com/how-to-append-data-to-div-element-using-javascript#:~:text=innerHTML%20property%20to%20add%20content,element%20to%20the%20.
         
+
+
+
         // Create a new div using the template div created above when adding new Classes to the voting.
-        function addCharacters(charactername){
+        function addCharacters(charactername, builds_links){
             var charactersListElement = document.getElementById('characterlist')
             var charactersTemplate = document.getElementById('template').innerHTML
-           
-            newCharactersHtml = charactersTemplate.replace(/##CHARACTERNAME/g, charactername)
+            
+            // Dictionaries with the data for each of the replaced fields when creating a new div for each character
+
+            var character_info = {
+            Barbarian: "Barbarian is a skilled melee fighter who knows his way around the axe, sword, and club. In fact, He can use pretty much any weapon that happens to get into His hands. He takes full advantage of his superior skills by carrying an arsenal of different weapons with him and swapping between them as the situation dictates it. Not only His weapons are deadly, His intimidating presence, combined with fierce shouts, is often enough to scatter enemies. While offensively-focussed, Barbarian is also a rather tough nut to crack and offers a wide range of powerful group utility tools.  Customization is a fun way of making a unique character in Diablo 4 and begins right after selecting which class you want to play. The first step is the choosing a Face & Body, and then based off that the other options will differ. The Hair comes next with many ways to style it along with facial hair. Once you've chosen a suitable head for your character, then you can add Accessories all over their body. Color variations are available at each of these steps. Finally, you must choose whether you play Hardcore or Softcore and then find a name for your hero.",
+            Sorcerer: "Sorceress is an expert in shaping the elements into whatever form she desires. She is able to shoot scorching balls of fire, hurl crackling lightning bolts, and condense jagged ice spikes out of the thin morning mist. Heavy Armor does not help with casting magic spells, so Sorceress has to rely on other means of protection (earlier iterations of the game featured various types of elemental shields and powerful mobility spells). Her playstyle is best described as 'high risk. high reward'; She can deal tons of damage, but She's rather fragile and a pack of enemies can end her life in mere seconds.",
+            Rogue: "Rogue is subtle as a morning breeze, agile as a cat, and deadly as a viper. This shady warrior can specialize in close-quarters combat or opt to engage Her enemies from a distance with a bow or a crossbow. While Her individual attacks are not as powerful as Barbarian's, she can combine them in deadly combos. She is also known to use various deadly poisons to coat her weapons. When it comes to defense, She mostly relies on her agility and various Shadow Magic Spells (these can also be used offensively). ",
+            Necromancer: "Necromancer is a cunning summoner, able to conjure hordes of vengeful golems and raise legions of the undead. He usually shies away from close combat and instead prefers to make his minions do his bidding. Necromancer is known to utilize three types of black magic: Bone, Blood, and Shadow. By combining them, he is able to do some unspeakable things to his foes whenever he desires. Moreover, he can create powerful bone barriers, use Shadows to confuse his enemies, and employ blood magic to restore his vital power. As a result, his survivability is excellent, especially for a caster. ",
+            Druid: "Druid is a wicked warrior who draws his power from the primordial energies that surround all living beings. He is able to fluidly transform into a vicious werewolf or a fierce bear to fight His enemies with fangs and claws. Creatures of the wild are known to flock towards Him and the Druid often takes advantage of this by utilizing such creatures in combat. As for the more subtle of His powers, he's also able to command the power of storm, wind, and earth, unleashing elemental devastation upon His enemies. When it comes to His defensive capabilities, they largely depend on Druid's chosen path. "
+            };
+
+
+            var build_links = {
+            Barbarian: "https://www.icy-veins.com/d4/barbarian/builds/",
+            Sorcerer: "https://www.icy-veins.com/d4/sorcerer/builds/",
+            Rogue: "https://www.icy-veins.com/d4/rogue/builds/",
+            Necromancer: "https://www.icy-veins.com/d4/necromancer/builds/",
+            Druid: "https://www.icy-veins.com/d4/druid/builds/"
+            };
+
+
+
+            var character_images = {
+            Barbarian: "https://static.icy-veins.com/wp/wp-content/uploads/2023/05/Barbarian-LP-2.jpg",
+            Sorcerer: "https://static.icy-veins.com/wp/wp-content/uploads/2023/06/Sorcerer-Arc-Lash.jpg",
+            Rogue: "https://static.icy-veins.com/wp/wp-content/uploads/2023/05/Rogue-LP-2.jpg",
+            Necromancer: "https://wp.icy-veins.com/wp-content/uploads/2023/05/Necromancer-FeaturedBG.jpg",
+            Druid: "https://static.icy-veins.com/wp/wp-content/uploads/2023/05/Druid-FeaturedBG.jpg"
+            };
+
+
+
+            newCharactersHtml = charactersTemplate.replace(/##CHARACTERNAME/g, charactername).replace(/##CHARACTERINFO/g,character_info[charactername]).replace(/##CHARACTERBUILD/g,build_links[charactername]).replace(/##CHARACTERIMAGE/g,character_images[charactername])
             charactersListElement.innerHTML += newCharactersHtml
          
-
+        
 
         }
         
@@ -130,37 +164,6 @@
 
         init()
 
-
-    /////// See the classes to remember how to host it and how to add the hyperlinks for the builds and 
-    /////// character info
-
-    /////// Check how to auto add a link for the build suggestion and information abot the classes
-
-
-         //var charactersInfoTemplate = document.getElementById('template').innerHTML
-            //charactersInfo = charactersInfoTemplate.replace(/##CHARACTERINFO/g, characterinfo)
-       // function addInfo(charactername){
-            //var links = [
-                //{ text: 'Barbarian', overview: 'The Barbarian is a staple class in the Diablo franchise and returns for glory in Diablo 4. They use overwhelming strength and a mastery of weapons to turn battlefields into wastelands.', build: 'https://maxroll.gg/d4/build-guides/rend-barbarian-leveling-guide' },
-                //{ text: 'Necromancer', overview: 'The Necromancer returns in Diablo 4 as the master of the Undead! They wield Shadow, Blood, Bone, and Curses as easily as ever before. With a horde of Skeletons, lead by your massive Golem, a single Necro fills the fields of Sanctuary with a terrifying host. The fuel you need to DEVASTATE the entire screen with MASSIVE Corpse Explosions is never more than a single dead demon away!', build: 'https://maxroll.gg/d4/build-guides/summoner-necromancer-leveling-guide' },
-                //{ text: 'Rogue', overview: 'https://openai.com' },
-                //{ text: 'Sorcerer', overview: 'https://openai.com' },
-                //{ text: 'Druid', overview: 'https://openai.com' },
-              //  ];
-            
-
-            //info = links
-            //console.log(info)
-            
-            //var charactersListElement = document.getElementById('characterlist')
-           // var charactersInfoTemplate = document.getElementById('template').innerHTML
-           // charactersInfo = charactersInfoTemplate.replace(/##CHARACTERINFO/g, characterinfo)
-
-
-            
-
-
-        //}
 
     </script>
         
