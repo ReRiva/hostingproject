@@ -61,6 +61,12 @@ class VotesCharacters:
         self.closeAll()
         return count
 
+
+
+
+
+
+
     def convertToDictionary(self, result):
         colnames=['id','title','author', "price"]
         item = {}
@@ -94,19 +100,29 @@ class VotesCharacters:
         self.connection.commit()
         self.closeAll()
 
+
+    # Deleting Votes from the table.
+
+    def deleteVotes(self):
+        cursor = self.getcursor()
+        sql="DELETE from votes;"
+        cursor.execute(sql)
+
+        self.connection.commit()
+        self.closeAll()
+
+
+
+
 votesCharacters = VotesCharacters()
 
 if __name__ == "__main__":
    
-   #Creating the databse and the vote table. Just need to be run once.
+   #Functions to Create both the database and table and clean/delete the votes. Just need to be run once.
 
     #votesCharacters.createDatabase()
     #votesCharacters.createVoteTable()
-
-    #data = ("Karl", "252.552.354.225") # ok
-    #vote = votesCharacters.createVote(data) # ok
-    #count = votesCharacters.countCharactersVotes("Karl")
-    #print(count)
+    #votesCharacters.deleteVotes()
 
     print("test")
 

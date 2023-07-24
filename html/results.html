@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Voting Result</h1>
+
+    <h2>Details</h2>
+    <div class="card-deck" id="result-container">
+        <!-- Result cards will be dynamically added here -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function init() {
+            getAmountVotes();
+        }
+        
+        function getAmountVotes() {
+            $.ajax({
+                url: "/vote",
+                method: "GET",
+                data: "",
+                dataType: "JSON",
+                success: function(result) {
+                      characters = result;
+
+                    for (let characterId in characters) {
+                          character = characters[characterId];
+                          characterName = Object.keys(character)[0];
+                          votes = character[characterName];
+
+                        populateResult(characterName, votes);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("status:" + status + " message:" + error);
+                }
+            });
+        }
+
+        function populateResult(characterName, votes) {
+              resultContainer = document.getElementById("result-container");
+
+            card = document.createElement("div");
+            card.classList.add("card");
+
+            cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+
+
+            characterNameElement = document.createElement("h5");
+            characterNameElement.classList.add("card-title");
+            characterNameElement.innerText = characterName;
+
+
+            votesElement = document.createElement("p");
+            votesElement.classList.add("card-text");
+            votesElement.innerText = `Votes: ${votes}`;
+
+            cardBody.appendChild(characterNameElement);
+            cardBody.appendChild(votesElement);
+            card.appendChild(cardBody);
+            resultContainer.appendChild(card);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

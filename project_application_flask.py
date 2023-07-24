@@ -55,13 +55,6 @@ def geAllChar():
 
 
 
-##### Do the delete all votes function
-
-@app.route('/vote/all', methods=['delete'])
-def deleteALLVotes():
-    return jsonify({'done':True})
-
-
 
 # Running the server
 if __name__ == "__main__":
