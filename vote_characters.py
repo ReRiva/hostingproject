@@ -52,7 +52,7 @@ class VotesCharacters:
     def countCharactersVotes(self,charactername):
         cursor = self.getcursor()
         
-        ## how to use count on SQL https://www.datacamp.com/tutorial/count-sql-function?utm_source=google&utm_medium=paid_search&utm_campaignid=19589720818&utm_adgroupid=143216588777&utm_device=c&utm_keyword=&utm_matchtype=&utm_network=g&utm_adpostion=&utm_creative=657040116606&utm_targetid=aud-517318242147:dsa-1947282172981&utm_loc_interest_ms=&utm_loc_physical_ms=1007835&utm_content=dsa~page~community-tuto&utm_campaign=230119_1-sea~dsa~tutorials_2-b2c_3-n-eu_4-prc_5-na_6-na_7-le_8-pdsh-go_9-na_10-na_11-na-mayftyc23&gclid=CjwKCAjwvdajBhBEEiwAeMh1U8mrMfDxyoW6MtMGugmMER8uYf4vOaOmtiFcmi7Yar8JcWwir9Rl7RoCfOYQAvD_BwE
+        # How to use count on SQL https://www.datacamp.com/tutorial/count-sql-function?utm_source=google&utm_medium=paid_search&utm_campaignid=19589720818&utm_adgroupid=143216588777&utm_device=c&utm_keyword=&utm_matchtype=&utm_network=g&utm_adpostion=&utm_creative=657040116606&utm_targetid=aud-517318242147:dsa-1947282172981&utm_loc_interest_ms=&utm_loc_physical_ms=1007835&utm_content=dsa~page~community-tuto&utm_campaign=230119_1-sea~dsa~tutorials_2-b2c_3-n-eu_4-prc_5-na_6-na_7-le_8-pdsh-go_9-na_10-na_11-na-mayftyc23&gclid=CjwKCAjwvdajBhBEEiwAeMh1U8mrMfDxyoW6MtMGugmMER8uYf4vOaOmtiFcmi7Yar8JcWwir9Rl7RoCfOYQAvD_BwE
         sql="Select COUNT(*) as vote from votes WHERE charactername like %s"
         values = (charactername,)
         cursor.execute(sql, values)

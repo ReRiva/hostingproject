@@ -9,7 +9,6 @@
 
     <h2>Details</h2>
     <div class="card-deck" id="result-container">
-        <!-- Result cards will be dynamically added here -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,7 +16,7 @@
         function init() {
             getAmountVotes();
         }
-        
+        // Function to gather the character name and amount of votes
         function getAmountVotes() {
             $.ajax({
                 url: "/vote",
@@ -41,6 +40,8 @@
             });
         }
 
+
+        // Function to populate the divs with the character name and amount of votes
         function populateResult(characterName, votes) {
               resultContainer = document.getElementById("result-container");
 
@@ -68,5 +69,56 @@
 
         window.onload = init;
     </script>
+
+  
+  
+  
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      color: #333333;
+    }
+    
+    p {
+      color: #666666;
+      margin-bottom: 20px;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <div class="container">
+    <a class="button" href="/votepage.html">Return to Homepage</a>
+  </div>
+
+
+
+
 </body>
 </html>
